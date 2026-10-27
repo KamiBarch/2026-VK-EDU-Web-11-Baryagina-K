@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BEST FAQ - Регистрация</title>
+    <title>BEST FAQ - Registration</title>
     <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-<header class="navbar navbar-expand-lg bg-white fixed-top border-bottom shadow-sm py-2">
+<header class="navbar navbar-expand-lg bg-white sticky-top border-bottom shadow-sm py-2">
     <div class="container d-flex flex-wrap align-items-center gap-3">
         <a class="navbar-brand fs-3 text-dark fw-bold me-auto" href="index.html">BEST FAQ</a>
         
         <form class="d-flex flex-grow-1 header-search" role="search">
-            <input class="form-control rounded-pill" type="search" placeholder="Поиск" aria-label="Поиск">
+            <input class="form-control rounded-pill" type="search" placeholder="Search" aria-label="Поиск">
         </form>
 
         <div class="d-flex align-items-center gap-3">
@@ -36,33 +36,38 @@
                 <div class="row mb-3">
                     <label for="regLogin" class="col-sm-3 col-form-label">Login</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="regLogin">
+                        <input type="text" class="form-control" id="regLogin" maxlength="50">
+                        <div class="form-text text-muted">Maximum 50 characters.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="regEmail" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-6">
-                        <input type="email" class="form-control is-invalid" id="regEmail" placeholder="@mail.ru">
-                        <div class="invalid-feedback">Этот email уже зарегистрирован.</div>
+                        <input type="email" class="form-control is-invalid" id="regEmail" placeholder="@mail.ru" maxlength="255">
+                        <div class="invalid-feedback">This email address has already been registered.</div>
+                        <div class="form-text text-muted">Maximum 255 characters.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="regNick" class="col-sm-3 col-form-label">NickName</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="regNick">
+                        <input type="text" class="form-control" id="regNick" maxlength="50">
+                        <div class="form-text text-muted">Maximum 50 characters.</div>
                     </div>
                     
                 </div>
                 <div class="row mb-3">
                     <label for="regPassword" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="regPassword">
+                        <input type="password" class="form-control" id="regPassword" minlength="8">
+                        <div class="form-text text-muted">Minimum 8 characters.</div>
                     </div>
                 </div>
                 <div class="row mb-4">
                     <label for="regPasswordConfirm" class="col-sm-3 col-form-label">Repeat Password</label>
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="regPasswordConfirm">
+                        <input type="password" class="form-control" id="regPasswordConfirm" minlength="8">
+                        <div class="form-text text-muted">Minimum 8 characters.</div>
                     </div>
                 </div>
                 <div class="row mb-4">

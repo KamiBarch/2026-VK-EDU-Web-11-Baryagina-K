@@ -1,5 +1,4 @@
 body {
-    padding-top: 80px;
     background-color: #f8f9fa;
 }
 
@@ -7,7 +6,6 @@ body {
     object-fit: cover;
 }
 
-/* Сайдбар */
 .sidebar-links a {
     text-decoration: none; 
     display: block; 

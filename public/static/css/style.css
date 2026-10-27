@@ -1,0 +1,67 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.avatar {
+    object-fit: cover;
+}
+
+.sidebar-links a {
+    text-decoration: none; 
+    display: block; 
+    margin-bottom: 8px;
+}
+
+.btn-ask {
+    background-color: #5cb85c; 
+    border-color: #4cae4c;
+    color: #fff;
+}
+.btn-ask:hover {
+    background-color: #449d44;
+    border-color: #398439;
+    color: #fff;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.header-search {
+    flex-basis: 140px;
+    min-width: 0;
+}
+
+.question-body {
+    min-width: 0;
+}
+
+.vote-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #6c757d;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px 8px;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.2s ease-in-out;
+}
+.vote-btn:hover {
+    border-color: #ced4da;
+    background-color: #e9ecef;
+}
+.vote-btn.active-up {
+    color: #198754;
+    border-color: #198754;
+    background-color: rgba(25, 135, 84, 0.1);
+}
+.vote-btn.active-down {
+    color: #dc3545;
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}

@@ -37,20 +37,20 @@ Gлатформа для вопросов и ответов (Q&A) для орг�
 ``
     Установите зависимости проекта:
 ``
-    pip install -r requirements.txt
+ pip install -r requirements.txt
 ``
     Запустите локальный сервер:
 ``
-    python manage.py runserver
+python manage.py runserver
 ``
     Проект будет доступен по адресу: http://127.0.0.1:8000/
 
 ### Вариант 2 - Запуск через Docker Compose
 ``
     Убедитесь, что у вас установлен Docker Desktop.
-    Откройте терминал в папке с проектом и выполните команду сборки и запуска:
+    Откройте терминал в папке с проектом и выполните команду сборки и запуска:      
     
-    docker compose up --build
+``  docker compose up --build
 ``
     Проект будет доступен по адресу: http://localhost:8000/
 

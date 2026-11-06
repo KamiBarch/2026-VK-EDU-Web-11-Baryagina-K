@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Профиль — BEST FAQ{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Settings: Kami</h1>
+
+<p class="text-danger mb-4">Failed to save profile changes.</p>
+
+<form>
+    <div class="row mb-3">
+        <label for="profileLogin" class="col-sm-3 col-form-label">Login</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="profileLogin" value="Kami" readonly maxlength="50">
+            <div class="form-text">The login cannot be changed. Maximum 50 characters.</div>
+        </div>
+    </div>
+    
+    <div class="row mb-3">
+        <label for="profileEmail" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-6">
+            <input type="email" class="form-control" id="profileEmail" value="kami@mail.ru" maxlength="255">
+            <div class="form-text">Maximum 255 characters.</div>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <label for="profileNick" class="col-sm-3 col-form-label">NickName</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control is-invalid" id="profileNick" value="Kami" maxlength="50">
+            <div class="form-text">The nickname must be unique. Maximum 50 characters.</div>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <label for="profileAvatar" class="col-sm-3 col-form-label pt-0">Upload avatar</label>
+        <div class="col-sm-6">
+            <div class="mb-3">
+                <img src="{% static 'img/avatar.jpg' %}" alt="Текущая аватарка" class="rounded avatar border" width="120" height="120">
+            </div>
+            <input type="file" class="form-control" id="profileAvatar">
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-9 offset-sm-3">
+            <button type="submit" class="btn btn-outline-dark px-4">Save</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

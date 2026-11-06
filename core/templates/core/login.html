@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Вход — BEST FAQ{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-2">Log In</h1>
+
+<p class="text-danger mb-4">Sorry, wrong password!</p>
+
+<form>
+    <div class="row mb-3">
+        <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="inputLogin" placeholder="Enter your login here" maxlength="50">
+        </div>
+    </div>
+    <div class="row mb-4">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control is-invalid" id="inputPassword" placeholder="********" minlength="8">
+            <div class="invalid-feedback">Wrong password</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10 offset-sm-2">
+            <button type="submit" class="btn btn-outline-dark px-4 mb-2">Log in!</button>
+            <div class="small">
+                <a href="{% url 'signup' %}" class="text-decoration-none">create new account</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

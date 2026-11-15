@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Настройка профиля — BEST FAQ{% endblock %}
+{% load static %}
+
+{% block content %}
+<h1 class="h3 mb-4">Registration</h1>
+
+<form>
+    <div class="row mb-3">
+        <label for="regLogin" class="col-sm-3 col-form-label">Login</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="regLogin" maxlength="50">
+            <div class="form-text text-muted">Maximum 50 characters.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="regEmail" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-6">
+            <input type="email" class="form-control is-invalid" id="regEmail" placeholder="@mail.ru" maxlength="255">
+            <div class="invalid-feedback">This email address has already been registered.</div>
+            <div class="form-text text-muted">Maximum 255 characters.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="regNick" class="col-sm-3 col-form-label">NickName</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="regNick" maxlength="50">
+            <div class="form-text text-muted">Maximum 50 characters.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="regPassword" class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control" id="regPassword" minlength="8">
+            <div class="form-text text-muted">Minimum 8 characters.</div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <label for="regPasswordConfirm" class="col-sm-3 col-form-label">Repeat Password</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control" id="regPasswordConfirm" minlength="8">
+            <div class="form-text text-muted">Minimum 8 characters.</div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <label for="regAvatar" class="col-sm-3 col-form-label">Upload avatar</label>
+        <div class="col-sm-6">
+            <input type="file" class="form-control" id="regAvatar">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-9 offset-sm-3">
+            <button type="submit" class="btn btn-outline-dark px-4">Register!</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}BEST FAQ{% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 </head>
@@ -25,7 +25,7 @@
             {% if user.is_authenticated %}
 
             <div class="d-flex align-items-center gap-2">
-                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar" class="rounded avatar" width="40" height="40">
+                <img src="{% static 'core/img/avatar.jpg' %}" alt="Avatar" class="rounded avatar" width="40" height="40">
                 <div class="d-flex flex-column lh-1 small">
                     <span class="fw-bold mb-1">Kami</span>
                     <div>
@@ -91,6 +91,6 @@
     </div>
 </footer>
 
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

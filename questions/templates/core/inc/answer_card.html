@@ -1,0 +1,19 @@
+{% load static %}
+<article class="card mb-3 shadow-sm border-0">
+    <div class="card-body d-flex gap-3">
+        <div class="flex-shrink-0 text-center d-flex flex-column align-items-center gap-1">
+            <img src="{% static 'core/img/avatar.jpg' %}" alt="Аватар комментатора" class="rounded avatar mb-1" width="64" height="64">
+            <button type="button" class="vote-btn" aria-label="Нравится" aria-pressed="false">▲</button>
+            <span class="fw-bold">0</span>
+            <button type="button" class="vote-btn" aria-label="Не нравится" aria-pressed="false">▼</button>
+        </div>
+        <div class="flex-grow-1 question-body">
+            <time datetime="{{ answer.created_at|date:'c' }}" class="text-muted">{{ answer.created_at|timesince }} ago</time>
+            <p class="text-break mb-3">{{ answer.text }}</p>
+            <div class="form-check text-muted">
+                <input class="form-check-input" type="checkbox" id="correctCheck{{ answer.id }}">
+                <label class="form-check-label" for="correctCheck{{ answer.id }}">Approved!</label>
+            </div>
+        </div>
+    </div>
+</article>

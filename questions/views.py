@@ -1,33 +1,47 @@
 from django.shortcuts import render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
+from django.http import Http404
+from datetime import timedelta
+from django.utils import timezone
+
 
 def paginate(objects_list, request, per_page=10):
-    page_number = request.GET.get('page', 1)
     paginator = Paginator(objects_list, per_page)
-    try:
-        page = paginator.page(page_number)
-    except PageNotAnInteger:
-        page = paginator.page(1)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
-    return page
+    return paginator.get_page(request.GET.get('page', 1))
 
-QUESTIONS = []
-for i in range(1, 30):
-    QUESTIONS.append({
+TAGS = {
+    'pr': {'slug': 'pr', 'name': 'PR'},
+    'yav26': {'slug': 'yav26', 'name': 'ЯВ26'},
+    'bestalks': {'slug': 'bestalks', 'name': 'BESTALKS'},
+}
+
+ANSWERS = [
+    {
+        'id': i,
+        'text': f'Это текст ответа {i} на заданный вопрос.',
+        'created_at': timezone.now() - timedelta(hours=i),
+    }
+    for i in range(1, 15)
+]
+
+QUESTIONS = [
+    {
         'id': i,
         'title': f'Вопрос {i}: Как составить PR-стратегию?',
         'text': f'Описание вопроса {i}. Ребята, собираем Core-team...',
-        'tags': ['PR', 'ЯВ26'],
-        'answers_count': 3
-    })
+        'tags': (
+            [TAGS['pr'], TAGS['yav26']]
+            if i % 2 == 1
+            else [TAGS['bestalks']]
+        ),
+        'answers_count': len(ANSWERS),
+        'created_at': timezone.now() - timedelta(hours=i),
 
-ANSWERS = []
-for i in range(1, 15):
-    ANSWERS.append({
-        'id': i,
-        'text': f'Это текст ответа {i} на заданный вопрос.',
-    })
+    }
+    for i in range(1, 36)
+]
+
+
 
 def index(request):
     page = paginate(QUESTIONS, request, per_page=5)
@@ -38,11 +52,19 @@ def hot_questions(request):
     return render(request, 'core/index.html', {'page_obj': page, 'page_title': 'Hot Questions', 'user': {'is_authenticated': True}})
 
 def tag_questions(request, tag_name):
-    page = paginate(QUESTIONS, request, per_page=5)
-    return render(request, 'core/index.html', {'page_obj': page, 'page_title': f'Tag: {tag_name}', 'tag_name': tag_name, 'user': {'is_authenticated': True}})
+    filtered_questions = [
+        question
+        for question in QUESTIONS
+        if any(tag['slug'] == tag_name for tag in question['tags'])
+    ]
+    page = paginate(filtered_questions, request, per_page=5)
+    tag_title = TAGS.get(tag_name, {}).get('name', tag_name)
+    return render(request, 'core/index.html', {'page_obj': page, 'page_title': f'Tag: {tag_title}', 'tag_name': tag_name, 'user': {'is_authenticated': True}})
 
 def question_detail(request, question_id):
-    question = next((q for q in QUESTIONS if q['id'] == question_id), QUESTIONS[0])
+    question = next((question for question in QUESTIONS if question['id'] == question_id),None,)
+    if question is None:
+        raise Http404('Вопрос не найден')
     answers_page = paginate(ANSWERS, request, per_page=5)
     return render(request, 'core/question.html', {
         'question': question, 

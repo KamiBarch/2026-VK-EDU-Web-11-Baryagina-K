@@ -11,6 +11,23 @@
 - Python 3.12 или новее для локального запуска
 - Docker Desktop и Docker Compose для запуска через Docker
 
+### Настройка окружения
+
+В корневой папке проекта, рядом с `manage.py`, создайте файл `.env` на основе `.env.example`.
+
+**macOS/Linux**
+```bash
+cp .env.example .env
+```
+
+**Windows PowerShell**
+```powershell
+Copy-Item .env.example .env
+```
+
+Укажите собственный `SECRET_KEY` в `.env`.
+
+
 
 ### Вариант 1. Локальный запуск
 
@@ -65,6 +82,5 @@ docker compose up --build
 - `/login/` — форма входа
 - `/signup/` — форма регистрации
 - `/profile/` — страница профиля
-- `/question_card/` - карточка вопроса
-- `/answer_card/` - карточка ответа
+
 

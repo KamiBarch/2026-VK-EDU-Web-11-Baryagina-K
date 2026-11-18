@@ -1,33 +1,27 @@
 {% extends 'core/base.html' %}
-{% load static %}
-{% block title %}Страница ответов — BEST FAQ{% endblock %}
+{% block title %}{{ question.title }} — BEST FAQ{% endblock %}
 {% block content %}
-<article class="d-flex gap-3 mb-5">
-    <div class="flex-shrink-0 text-center d-flex flex-column align-items-center gap-1">
-        <img src="{% static 'core/img/avatar.jpg' %}" alt="Аватар автора вопроса" class="rounded avatar mb-1" width="80" height="80">
-        <button type="button" class="vote-btn active-up" aria-label="Нравится" aria-pressed="true">▲</button>
-        <span class="fw-bold fs-5">0</span>
-        <button type="button" class="vote-btn" aria-label="Не нравится" aria-pressed="false">▼</button>
+<article class="d-flex gap-3 mb-4">
+    <div class="flex-shrink-0 text-center d-flex flex-column gap-1">
+        {% include 'core/inc/author_avatar.html' with author=question.author size=80 only %}
+        <span class="fw-bold" title="Рейтинг">{{ question.rating }}</span>
     </div>
     <div class="flex-grow-1 question-body">
         <h1 class="h3 mb-3">{{ question.title }}</h1>
+        <p class="text-muted small">Author: {{ question.author.username }}</p>
         <p class="text-break">{{ question.text }}</p>
-        <div class="d-flex flex-wrap align-items-center gap-3 mt-3 small">
-            <div class="d-flex align-items-center gap-2">
-                <span class="text-muted">Tags:</span>
-                {% for tag in question.tags %}
-                    <a href="{% url 'tag' tag.slug %}" class="badge text-bg-dark">{{ tag.name }}</a>
-                {% endfor %}
-            </div>
-            <div class="d-flex align-items-center gap-3 text-muted ms-auto">
-                <span class="text-muted ms-auto">Answers ({{ question.answers_count }})</span>
-            </div>
+        <div class="d-flex flex-wrap align-items-center gap-2 small">
+            {% for tag in question.tags.all %}
+                <a class="badge text-bg-dark" href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>
+            {% empty %}
+                <span class="text-muted">No Tags</span>
+            {% endfor %}
         </div>
     </div>
 </article>
 
-<hr class="mb-4">
 
+<h2 class="h5 mb-3">Answers: {{ page_obj.paginator.count }}</h2>
 {% for answer in page_obj %}
     {% include 'core/inc/answer_card.html' with answer=answer only %}
 {% empty %}
@@ -37,13 +31,6 @@
 {% if page_obj.has_other_pages %}
     {% include 'core/inc/pagination.html' %}
 {% endif %}
-
-
-<form class="mb-5 mt-4" action="{% url 'question' question.id %}" method="post">
-    <div class="mb-3">
-        <textarea class="form-control" rows="5" placeholder="Write your answer here..." maxlength="1500"></textarea>
-        <div class="form-text">Maximum 1500 characters.</div>
-    </div>
-    <button type="button" class="btn btn-primary px-4">To answer</button>
-</form>
 {% endblock %}
+
+

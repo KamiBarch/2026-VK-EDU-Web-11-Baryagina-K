@@ -22,15 +22,19 @@
         <div class="d-flex align-items-center gap-3">
             <a href="{% url 'ask' %}" class="btn btn-ask fw-bold px-4">ASK!</a>
             
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
 
             <div class="d-flex align-items-center gap-2">
                 <img src="{% static 'core/img/avatar.jpg' %}" alt="Avatar" class="rounded avatar" width="40" height="40">
                 <div class="d-flex flex-column lh-1 small">
-                    <span class="fw-bold mb-1">Kami</span>
+                    <span class="fw-bold mb-1">{{ request.user.username }}</span>
                     <div>
                         <a href="{% url 'profile' %}" class="text-decoration-none me-1">settings</a>
                         <a href="{% url 'login' %}" class="text-decoration-none text-muted">log out</a>
+                        <!--<form method = "post" action="{% url 'logout' %}" class = "d-inline">
+                            {% csrf_token%}
+                            <button type="submit" class="btn btn-link text-decoration-none text-muted p-0">log out</button>
+                        </form>-->
                     </div>
                 </div>
             </div>
@@ -50,24 +54,20 @@
 
 <div class="container mt-4 flex-grow-1">
     <div class="row g-4">
-        <main class="col-12 col-lg-8">
+        <main class="{% block main_class %}col-12 col-lg-8{% endblock %}">
             {% block content %}
             {% endblock %}
         </main>
-        
+        {%block sidebar%}
         <aside class="col-12 col-lg-4">
             <section class="mb-4">
-                <h2 class="h4 mb-3">Popular Tags</h2>
+                <h2 class="h4 mb-3">Tags</h2>
                 <div class="d-flex flex-wrap align-items-baseline gap-2">
-                    <a href="{% url 'tag' 'pr' %}" class="badge text-bg-dark">PR</a>
-                    <a href="{% url 'tag' 'logistics' %}" class="badge text-bg-danger">Logistics</a>
-                    <a href="{% url 'tag' 'core-team' %}" class="badge text-bg-dark">Core-team</a>
-                    <a href="{% url 'tag' 'yav26' %}" class="badge text-bg-danger">ЯВ26</a>
-                    <a href="{% url 'tag' 'bestalks' %}" class="badge text-bg-success">BESTALKS</a>
-                    <br class="d-none d-lg-block">
-                    <a href="{% url 'tag' 'motivation' %}" class="badge text-bg-danger">Motivation</a>
-                    <a href="{% url 'tag' 'smm' %}" class="badge text-bg-primary">SMM</a>
-                    <a href="{% url 'tag' 'fr' %}" class="badge text-bg-warning">FR</a>
+                    {% for tag in sidebar_tags %}
+                        <a class="badge text-bg-dark" href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>
+                    {% empty %}
+                        <span class="text-muted">No Tags</span>
+                    {% endfor %}
                 </div>
             </section>
 
@@ -82,6 +82,7 @@
                 </ul>
             </section>
         </aside>
+        {% endblock%}
     </div>
 </div>
 

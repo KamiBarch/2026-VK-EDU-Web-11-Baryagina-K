@@ -1,19 +1,15 @@
 {% extends 'core/base.html' %}
-{% load static %}
-{% block title %}{{ page_title }}  — BEST FAQ{% endblock %}
+{% block title %}{{ page_title }} — BEST FAQ{% endblock %}
 {% block content %}
 <div class="d-flex align-items-baseline gap-3 mb-3">
     <h1 class="h3 mb-0">{{ page_title }}</h1>
-    
-    {% if page_title == 'New Questions' %}
-        <a href="{% url 'hot' %}" class="text-decoration-none">Hot Questions</a>
-    {% elif page_title == 'Hot Questions' %}
-        <a href="{% url 'index' %}" class="text-decoration-none">New Questions</a>
-    {% else %}
-        <a href="{% url 'index' %}" class="text-decoration-none">Back to New Questions</a>
+    {% if active_tab != 'new' %}
+        <a href="{% url 'index' %}">New Questions</a>
+    {% endif %}
+    {% if active_tab != 'hot' %}
+        <a href="{% url 'hot' %}">Hot Questions</a>
     {% endif %}
 </div>
-
 
 {% for question in page_obj %}
     {% include 'core/inc/question_card.html' with question=question only %}
@@ -25,3 +21,5 @@
     {% include 'core/inc/pagination.html' %}
 {% endif %}
 {% endblock %}
+
+

@@ -1,0 +1,8 @@
+{% load static %}
+{% if author.profile.avatar %}
+    <img src="{{ author.profile.avatar.url }}" alt="Аватар автора"
+         class="rounded avatar" width="{{ size }}" height="{{ size }}">
+{% else %}
+    <img src="{% static 'core/img/avatar.jpg' %}" alt="Аватар по умолчанию"
+         class="rounded avatar" width="{{ size }}" height="{{ size }}">
+{% endif %}

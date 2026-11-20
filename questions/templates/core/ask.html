@@ -4,28 +4,38 @@
 {% block content %}
 <h1 class="h3 mb-4">New Question</h1>
 
-<p class="text-danger mb-4">Please fix the errors below.</p>
+{% if form.errors %}
+    <p class="text-danger mb-4">Please fix the errors below.</p>
+{% endif %}
 
-<form>
+
+<form method="post" action="{% url 'ask' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
     <div class="row mb-3">
         <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control is-invalid" id="inputTitle" placeholder="Briefly describe the essence of your question." maxlength="100">
-            <div class="invalid-feedback">Title cannot be empty.</div>
+            <input type="text" class="form-control" id="inputTitle" name="title" placeholder="Briefly describe the essence of your question." maxlength="100" value="{{ form.title.value|default_if_none:'' }}">
+            <div class="text-danger small">{{ form.title.errors }}</div>
             <div class="form-text text-muted">Maximum 100 characters.</div>
         </div>
     </div>
     <div class="row mb-3">
         <label for="inputText" class="col-sm-2 col-form-label">Text</label>
         <div class="col-sm-10">
-            <textarea class="form-control" id="inputText" rows="5" placeholder="Write your question here." maxlength="1000"></textarea>
+            <textarea class="form-control" id="inputText" name="text" rows="5" placeholder="Write your question here." maxlength="1000">{{ form.text.value|default_if_none:'' }}</textarea>
+            <div class="text-danger small">{{ form.text.errors }}</div>
+
             <div class="form-text text-muted">Maximum 1000 characters.</div>
         </div>
     </div>
     <div class="row mb-4">
         <label for="inputTags" class="col-sm-2 col-form-label">Tags</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputTags" placeholder="BESTALKS, ЯВ26, Motivation">
+            <input type="text" class="form-control" id="inputTags" name="tags_text" placeholder="BESTALKS, ЯВ26, Motivation" value="{{ form.tags_text.value|default_if_none:'' }}">
+            <div class="text-danger small">{{ form.tags_text.errors }}</div>
+            <div class="form-text text-muted">Separate tags with commas.</div>
         </div>
     </div>
     <div class="row">

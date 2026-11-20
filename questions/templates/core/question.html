@@ -4,7 +4,7 @@
 <article class="d-flex gap-3 mb-4">
     <div class="flex-shrink-0 text-center d-flex flex-column gap-1">
         {% include 'core/inc/author_avatar.html' with author=question.author size=80 only %}
-        <span class="fw-bold" title="Рейтинг">{{ question.rating }}</span>
+        {% include "core/inc/question_vote.html" with question=question %}
     </div>
     <div class="flex-grow-1 question-body">
         <h1 class="h3 mb-3">{{ question.title }}</h1>
@@ -23,7 +23,7 @@
 
 <h2 class="h5 mb-3">Answers: {{ page_obj.paginator.count }}</h2>
 {% for answer in page_obj %}
-    {% include 'core/inc/answer_card.html' with answer=answer only %}
+    {% include 'core/inc/answer_card.html' with answer=answer %}
 {% empty %}
     <p class="text-muted">There are no answers yet</p>
 {% endfor %}
@@ -31,6 +31,58 @@
 {% if page_obj.has_other_pages %}
     {% include 'core/inc/pagination.html' %}
 {% endif %}
+
+<section id="answer-form" class="mt-4 mb-4">
+    <h2 class="h5 mb-3">Your answer</h2>
+
+    {% if request.user.is_authenticated %}
+        <form
+            method="post"
+            action="{{ question.get_absolute_url }}?page={{ page_obj.number }}#answer-form"
+        >
+            {% csrf_token %}
+            {{ answer_form.non_field_errors }}
+
+            <div class="mb-3">
+                <label for="answerText" class="form-label">Text</label>
+
+                <textarea
+                    id="answerText"
+                    name="text"
+                    class="form-control"
+                    rows="5"
+                    maxlength="1500"
+                    placeholder="Write your answer here."
+                >{{ answer_form.text.value|default_if_none:'' }}</textarea>
+
+                <div class="text-danger small">
+                    {{ answer_form.text.errors }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-ask fw-bold px-4">
+                Post answer
+            </button>
+        </form>
+    {% else %}
+        <button
+            type="button"
+            class="btn btn-ask fw-bold px-4"
+            disabled
+            title="Log in to post an answer"
+        >
+            Post answer
+        </button>
+
+        <a
+            class="ms-2"
+            href="{% url 'login' %}?next={{ request.get_full_path|urlencode:'' }}"
+        >
+            Log in to post an answer
+        </a>
+    {% endif %}
+</section>
+
 {% endblock %}
 
 

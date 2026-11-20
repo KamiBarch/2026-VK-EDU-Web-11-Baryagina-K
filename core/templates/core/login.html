@@ -1,6 +1,4 @@
 
-
-
 {% extends 'core/base.html' %}
 {% load static %}
 
@@ -15,7 +13,7 @@
 
 <form method="post">
     {% csrf_token %}
-
+    <input type="hidden" name ="next" value="{{ next }}">
     {% if form.non_field_errors %}
         <p class="text-danger mb-4">Invalid username or password</p>
     {% endif %}
@@ -23,18 +21,18 @@
     <div class="row mb-3">
         <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
         <div class="col-sm-6">
-            <input type="text" name="username" class="form-control"
-                   id="inputLogin" placeholder="Enter your login here"
-                   maxlength="150" autocomplete="username" required>
+            <input type="text" name="username" class="form-control" id="inputLogin" placeholder="Enter your login here"
+                   maxlength="150" autocomplete="username" value ="{{form.username.value|default_if_none:''}}" required>
+                   {{form.username.errors}}
         </div>
     </div>
-
     <div class="row mb-4">
         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-6">
             <input type="password" name="password" class="form-control"
                    id="inputPassword" placeholder="****"
                    autocomplete="current-password" required>
+                {{form.password.errors}}
         </div>
     </div>
 

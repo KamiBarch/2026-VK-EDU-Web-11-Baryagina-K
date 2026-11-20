@@ -12,7 +12,7 @@
 </div>
 
 {% for question in page_obj %}
-    {% include 'core/inc/question_card.html' with question=question only %}
+    {% include 'core/inc/question_card.html' with question=question %}
 {% empty %}
     <p class="text-muted">No questions</p>
 {% endfor %}

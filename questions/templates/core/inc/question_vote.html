@@ -1,0 +1,71 @@
+<form
+    class="d-flex flex-column align-items-center mb-0"
+    method="post"
+    action="{% url 'question_vote' %}"
+    data-question-vote
+>
+    {% csrf_token %}
+
+    <input
+        type="hidden"
+        name="question_id"
+        value="{{ question.pk }}"
+    >
+
+    <button
+        type="submit"
+        class="vote-btn"
+        name="value"
+        value="1"
+        aria-label="Like"
+        aria-pressed="{% if question.my_vote == 1 %}true{% else %}false{% endif %}"
+        {% if not request.user.is_authenticated %}
+            disabled
+            title="Log in to vote"
+        {% elif question.my_vote == 1 %}
+            disabled
+            title="You already selected this vote"
+        {% endif %}
+
+    >
+        ▲
+    </button>
+
+    <span
+        class="fw-bold"
+        data-vote-rating
+        aria-live="polite"
+    >
+        {{ question.rating }}
+    </span>
+
+    <button
+        type="submit"
+        class="vote-btn"
+        name="value"
+        value="-1"
+        aria-label="Dislike"
+        aria-pressed="{% if question.my_vote == -1 %}true{% else %}false{% endif %}"
+        {% if not request.user.is_authenticated %}
+            disabled
+            title="Log in to vote"
+        {% elif question.my_vote == -1 %}
+            disabled
+            title="You already selected this vote"
+        {% endif %}
+
+    >
+        ▼
+    </button>
+
+    <small
+        class="text-danger"
+        data-vote-error
+        role="status"
+    ></small>
+
+    {% if not request.user.is_authenticated %}
+        <a class="small text-muted" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">Log in to vote</a>
+
+    {% endif %}
+</form>

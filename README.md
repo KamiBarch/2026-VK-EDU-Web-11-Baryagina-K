@@ -14,8 +14,9 @@
 **Windows PowerShell**
 
 ```powershell
-py -3.12 -m venv venv
-.\venv\Scripts\Activate.ps1
+   py -3.12 -m venv venv
+   .\venv\Scripts\Activate.ps1
+
 Copy-Item .env.example .env.local
 Copy-Item .env.example .env.docker
 ```
@@ -41,7 +42,7 @@ cp .env.example .env.docker
 | `DB_HOST` | `127.0.0.1` | `db` |
 | `DB_PORT` | `5433` | `5432` |
 
-`5433` — порт компьютера в проверенной конфигурации. Если в `docker-compose.yml` проброшен другой порт, укажите его в `.env.local`. Не добавляйте `.env.local` и `.env.docker` в Git. Если база уже создана, используйте её действующие имя, пользователя и пароль.
+`5433` — порт компьютера в проверенной конфигурации. Если в `docker-compose.yml` проброшен другой порт, укажите его в `.env.local`. Не добавляйте `.env.local` и `.env.docker` в Git. Если база уже создана, используйте её действующие имя, пользователя и пароль. Если .env.local и .env.docker уже созданы и настроены, не копируйте файлы заново
 
 ## Запуск
 
@@ -82,3 +83,6 @@ python manage.py fill_db 10
 | `/question/<id>/` | Вопрос и ответы на него |
 | `/login/` | Вход в существующую учётную запись |
 | `/admin/` | Админка Django. Для создания локального суперпользователя: `python manage.py createsuperuser` |
+|`/signup/`|  Регистрация |
+|`/ask/`| Cоздание вопроса после входа |
+|`/profile/`| Hастройки профиля после входа|

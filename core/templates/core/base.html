@@ -20,21 +20,32 @@
         </form>
 
         <div class="d-flex align-items-center gap-3">
+            {% if request.user.is_authenticated %}
             <a href="{% url 'ask' %}" class="btn btn-ask fw-bold px-4">ASK!</a>
+            {% else %}
+            <button type="button" class="btn btn-ask fw-bold px-4" disabled title="Log in to ask a question">ASK!</button>
+{% endif %}
+
             
             {% if request.user.is_authenticated %}
 
             <div class="d-flex align-items-center gap-2">
-                <img src="{% static 'core/img/avatar.jpg' %}" alt="Avatar" class="rounded avatar" width="40" height="40">
+                {% with profile=request.user.profile %}
+                    <img src="{% if profile and profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'core/img/avatar.jpg' %}{% endif %}"
+                        alt="Avatar" class="rounded avatar" width="40" height="40">
+                {% endwith %}
+
                 <div class="d-flex flex-column lh-1 small">
                     <span class="fw-bold mb-1">{{ request.user.username }}</span>
-                    <div>
+                    <div class="d-flex align-items-center gap-3">
                         <a href="{% url 'profile' %}" class="text-decoration-none me-1">settings</a>
-                        <a href="{% url 'login' %}" class="text-decoration-none text-muted">log out</a>
-                        <!--<form method = "post" action="{% url 'logout' %}" class = "d-inline">
+                        <!--<a href="{% url 'login' %}" class="text-decoration-none text-muted">log out</a>-->
+                        <form method = "post" action="{% url 'logout' %}" class = "d-inline">
                             {% csrf_token%}
-                            <button type="submit" class="btn btn-link text-decoration-none text-muted p-0">log out</button>
-                        </form>-->
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            <button type="submit" class="btn btn-link text-decoration-none text-muted p-0" style="font: inherit; line-height: inherit;"> log out</button>
+                            
+                        </form>
                     </div>
                 </div>
             </div>
@@ -93,5 +104,8 @@
 </footer>
 
 <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'core/js/question-vote.js' %}" defer></script>
+<script defer src="{% static 'core/js/answer-approval.js' %}"></script>
+
 </body>
 </html>

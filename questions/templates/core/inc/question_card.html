@@ -2,10 +2,8 @@
     <div class="card-body d-flex gap-3">
         <div class="flex-shrink-0 text-center d-flex flex-column align-items-center gap-1">
             {% include 'core/inc/author_avatar.html' with author=question.author size=64 only %}
+            {% include "core/inc/question_vote.html" with question=question %}
 
-            <button type="button" class="vote-btn" aria-label="Нравится" aria-pressed="false">▲</button>
-            <span class="fw-bold">{{ question.rating }}</span>
-            <button type="button" class="vote-btn" aria-label="Не нравится" aria-pressed="false">▼</button>
         </div>
 
         <div class="flex-grow-1 question-body">

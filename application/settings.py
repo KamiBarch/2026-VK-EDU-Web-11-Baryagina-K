@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+LOGIN_URL = "login"
 
 # Application definition
 
